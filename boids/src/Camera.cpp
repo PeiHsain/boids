@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <vector>
 
-#define safeDistance 20 //cm
+#define safeDistance 30 //cm
 
 Camera::Camera(){
     sub_pose = n.subscribe("pose_robot", 1, &Camera::PoseFeedback, this);
