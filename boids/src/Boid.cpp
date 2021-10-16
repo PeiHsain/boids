@@ -304,7 +304,7 @@ void Boid::flock(const vector<Boid>& v, const Leader& l, const Ultrasonic& u)
     Pvector coh = Cohesion(v, l);
 
     // Might need to alter weights for different characteristics
-    sep.mulScalar(2.0);
+    sep.mulScalar(3.5);
     ali.mulScalar(1.75);
     coh.mulScalar(1.75);
 
@@ -322,10 +322,10 @@ void Boid::flockL(const vector<Boid>& v, const Leader& l, const Ultrasonic& u)
     Pvector foll = FollowLeader(l);
 
     // Might need to alter weights for different characteristics
-    sep.mulScalar(2.5);
+    sep.mulScalar(2.8);
     ali.mulScalar(1.0);
     coh.mulScalar(1.0);
-    foll.mulScalar(1.0);
+    foll.mulScalar(0.8);
 
     // Add the force vectors to acceleration
     applyForce(sep);
