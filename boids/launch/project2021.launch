@@ -1,0 +1,12 @@
+<launch>
+
+	<!-- <node name="test_ultra_node" pkg="boids" type="test_ultra.exe" output="screen" respawn="false">
+	</node>
+
+	<node name="test_camerqa_node" pkg="boids" type="test_camera.exe" output="screen" respawn="false">
+	</node> -->
+
+	<node name="main_node" pkg="boids" type="main.exe" output="screen" respawn="false">
+	</node>
+
+</launch>

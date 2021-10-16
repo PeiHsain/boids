@@ -1,0 +1,13 @@
+<launch>
+	<node name="ultrasonic" pkg="ultrasonic" type="ultra_sensors.py" respawn="false">
+	</node>
+
+	<node name="motor_control" pkg="motor_control" type="motor_control.py" respawn="false">
+	</node>
+
+	<include file="$(find robot_detection)/launch/robot_detection.launch" >
+    	</include>
+
+	<include file="$(find boids)/launch/project2021.launch">
+    	</include>
+</launch>
