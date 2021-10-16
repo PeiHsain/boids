@@ -166,6 +166,8 @@ int main(int argc, char** argv)
 	    ROS_INFO("angle: %f", angle);
         if(speed > 100)
             speed = 100;
+	else if(speed >15 && speed <30)
+	    speed *= 0.8;
         else if(speed < 0)
             speed = 0;
         robot_msg.data[0] = speed;
