@@ -144,7 +144,7 @@ int Camera::WhichState(){
     else{
         if(leader.seeOrNot()){
             if(leader.l_get().magnitude() < safeDistance){ //catch leader
-                if(leader.o_get() < (-PI+0.52) || leader.o_get() > (PI-0.52)) //catch front (PI+-degree30)
+                if(leader.o_get() <= (-PI+0.52) || leader.o_get() >= (PI-0.52)) //catch front (PI+-degree30)
                     return 1;
                 else
                     return 4;
@@ -155,7 +155,7 @@ int Camera::WhichState(){
             for(int i = 0 ; i < 4 ; i++){
                 if(robot[i].See())
                     if(robot[i].l_get().magnitude() < safeDistance) //catch robots
-                        if(robot[i].o_get() < (-PI+0.17) || robot[i].o_get() > (PI-0.17)) //catch front (PI+-degree10)
+                        if(robot[i].o_get() <= (-PI+0.52) || robot[i].o_get() >= (PI-0.52)) //catch front (PI+-degree30)
                             return 1;
                         else
                             return 4;
