@@ -144,7 +144,7 @@ int Camera::WhichState(){
     else{
         if(leader.seeOrNot()){
             if(leader.l_get().magnitude() < safeDistance){ //catch leader
-                if(leader.o_get() < (-PI+0.17) || leader.o_get() > (PI-0.17)) //catch front (PI+-degree10)
+                if(leader.o_get() < (-PI+0.52) || leader.o_get() > (PI-0.52)) //catch front (PI+-degree30)
                     return 1;
                 else
                     return 4;
