@@ -102,7 +102,7 @@ Pvector Boid::Separation(const vector<Boid>& boids, const Leader& lead, const Ul
             // diff = diff.subTwoVector(location, boids[i].location);
             diff.subTwoVector(location, lead.l_get());
             if(d <= slowDownDistance)
-                diff.mulScalar(1.1);
+                diff.mulScalar(1.05);
             // diff.normalize();
             // diff.divScalar(d);      // Weight by distance
             steer.addVector(diff);
