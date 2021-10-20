@@ -11,6 +11,7 @@
 #include <vector>
 
 #define safeDistance 30 //cm
+#define PI 3.141592635
 
 Camera::Camera(){
     sub_pose = n.subscribe("pose_robot", 1, &Camera::PoseFeedback, this);
@@ -37,35 +38,35 @@ void Camera::PoseFeedback(const boids::RobotArray::ConstPtr& msg){
             {
             case 0:
                 leader.l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
-                leader.o_update(msg->robot[i].orientation);
+                leader.o_update(msg->robots[i].orientation);
                 leaderDis = leader.l_get().magnitude();
                 if(leaderDis < robotCloseDistance)
                     robotCloseDistance = leaderDis;
                 break;
             case 1:
                 robot[0].l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
-                robot[0].o_update(msg->robot[i].orientation);
+                robot[0].o_update(msg->robots[i].orientation);
                 robotDis = robot[0].l_get().magnitude();
                 if(robotDis < robotCloseDistance)
                     robotCloseDistance = robotDis;
                 break;
             case 2:
                 robot[1].l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
-                robot[1].o_update(msg->robot[i].orientation);
+                robot[1].o_update(msg->robots[i].orientation);
                 robotDis = robot[1].l_get().magnitude();
                 if(robotDis < robotCloseDistance)
                     robotCloseDistance = robotDis;
                 break;
             case 3:
                 robot[2].l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
-                robot[2].o_update(msg->robot[i].orientation);
+                robot[2].o_update(msg->robots[i].orientation);
                 robotDis = robot[2].l_get().magnitude();
                 if(robotDis < robotCloseDistance)
                     robotCloseDistance = robotDis;
                 break;
             case 4:
                 robot[3].l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
-                robot[3].o_update(msg->robot[i].orientation);
+                robot[3].o_update(msg->robots[i].orientation);
                 robotDis = robot[3].l_get().magnitude();
                 if(robotDis < robotCloseDistance)
                     robotCloseDistance = robotDis;
