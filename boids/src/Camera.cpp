@@ -37,30 +37,35 @@ void Camera::PoseFeedback(const boids::RobotArray::ConstPtr& msg){
             {
             case 0:
                 leader.l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
+                leader.o_update(msg->robot[i].orientation);
                 leaderDis = leader.l_get().magnitude();
                 if(leaderDis < robotCloseDistance)
                     robotCloseDistance = leaderDis;
                 break;
             case 1:
                 robot[0].l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
+                robot[0].o_update(msg->robot[i].orientation);
                 robotDis = robot[0].l_get().magnitude();
                 if(robotDis < robotCloseDistance)
                     robotCloseDistance = robotDis;
                 break;
             case 2:
                 robot[1].l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
+                robot[1].o_update(msg->robot[i].orientation);
                 robotDis = robot[1].l_get().magnitude();
                 if(robotDis < robotCloseDistance)
                     robotCloseDistance = robotDis;
                 break;
             case 3:
                 robot[2].l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
+                robot[2].o_update(msg->robot[i].orientation);
                 robotDis = robot[2].l_get().magnitude();
                 if(robotDis < robotCloseDistance)
                     robotCloseDistance = robotDis;
                 break;
             case 4:
                 robot[3].l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
+                robot[3].o_update(msg->robot[i].orientation);
                 robotDis = robot[3].l_get().magnitude();
                 if(robotDis < robotCloseDistance)
                     robotCloseDistance = robotDis;
@@ -111,11 +116,13 @@ void Camera::CallCamera(Flock& f, Leader& l){
         l.appear_update(leader.seeOrNot());
         l.l_update(leader.l_get().x, leader.l_get().y);
         l.v_update(leader.v_get().x, leader.v_get().y);
+        l.o_update(leader.o_get());
         //ROS_INFO("leader : vx=%f, vy=%f, px=%f, py=%f", leader.v_get().x, leader.v_get().y, leader.l_get().x, leader.l_get().y);
     }
     else{
         l.l_update(0., 0.);
         l.v_update(0., 0.);
+        l.o_update(0.);
     }
     //flock clean
     f.flock.clear();
@@ -135,15 +142,22 @@ int Camera::WhichState(){
         return 1;
     else{
         if(leader.seeOrNot()){
-            if(leader.l_get().magnitude() < safeDistance) //catch leader
-                return 4;
+            if(leader.l_get().magnitude() < safeDistance){ //catch leader
+                if(leader.o_get() < (-PI+0.17) || leader.o_get() > (PI-0.17)) //catch front (PI+-degree10)
+                    return 1;
+                else
+                    return 4;
+            }
             else return 3; //see leader
         }
         else{ //don't see leader, but see robots
             for(int i = 0 ; i < 4 ; i++){
                 if(robot[i].See())
                     if(robot[i].l_get().magnitude() < safeDistance) //catch robots
-                        return 4;
+                        if(robot[i].o_get() < (-PI+0.17) || robot[i].o_get() > (PI-0.17)) //catch front (PI+-degree10)
+                            return 1;
+                        else
+                            return 4;
             }
             return 2; //see robots
         }

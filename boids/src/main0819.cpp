@@ -48,17 +48,17 @@ int main(int argc, char** argv)
                 if (firstStop == 0){//first see nothing
                     status = camera.IsReallyUnvisible();
                     if(status == 11){//remain same vector
-			firstStop ++;                        
-			break;
-		    }
-                    else{//really see nothing
-			ROS_INFO("Stop");
-			stop = 1.;
-			inCircle = 0.;
-			//first time nothing = false
-			firstStop ++;
-		    }
-		}    
+			            firstStop ++;                        
+                    break;
+                    }
+                            else{//really see nothing
+                    ROS_INFO("Stop");
+                    stop = 1.;
+                    inCircle = 0.;
+                    //first time nothing = false
+                    firstStop ++;
+                    }
+                }    
                 else if(firstStop > 0 && firstStop < 5){//stop to see more once
                     ROS_INFO("Stop");
                     stop = 1.;

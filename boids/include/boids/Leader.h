@@ -48,21 +48,10 @@ public:
     void appear_update(bool see);
     void l_update(const float x, const float y);
     void v_update(const float x, const float y);
+    void o_update(const float o);
     Pvector l_get() const;
-    Pvector v_get() const; 
-    //add force
-    // void applyForce(const Pvector& force);
-    // //approach goal
-    // Pvector Approach(const Pvector& tar);
-    // Pvector Separation(const Pvector& tar);
-    // //Functions involving SFML and visualisation linking
-    // Pvector seek(const Pvector& v);
-    // void run();//const vector<Boid>& v);
-    // void update();
-    // void flock();//const vector<Boid>& v);
-    // // void borders();
-    // float angle(const Pvector& v);
-    // void setTarget(int x, int y);
+    Pvector v_get() const;
+    float o_get() const; 
 };
 
 #endif

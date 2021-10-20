@@ -54,9 +54,11 @@ public:
     void applyForce(const Pvector& force);
     void l_update(const float x, const float y);
     void v_update(const float x, const float y);
+    void o_update(const float o);
     Pvector l_get() const;
     Pvector v_get() const;
     Pvector a_get() const;
+    float o_get() const;
     // Three Laws that boids follow
     Pvector Separation(const vector<Boid>& Boids, const Leader& lead, const Ultrasonic& ultra);
     Pvector Alignment(const vector<Boid>& Boids, const Leader& lead);

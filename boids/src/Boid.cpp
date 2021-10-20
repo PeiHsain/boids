@@ -55,11 +55,19 @@ void Boid::v_update(const float x, const float y)
     velocity.set(x, y);
 }
 
+//update robot orientation
+void Boid::o_update(const float o)
+{
+    angle = o;
+}
+
 Pvector Boid::l_get() const{ return this->location;}
 
 Pvector Boid::v_get() const{ return this->velocity;}
 
 Pvector Boid::a_get() const{ return this->acceleration;}
+
+float Boid::o_get() const{ return this->angle;}
 
 // Separation
 // Keeps boids from getting too close to one another
