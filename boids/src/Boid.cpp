@@ -378,77 +378,106 @@ bool Boid::See(){
 //180/8 = 22.5 degree/area ; return = 0:no blocked, = 1:blocked, = 2:add degree, = 3:sub degree
 int Boid::beBlocked(const Ultrasonic& u){
     Angle();
-    if(angle > 0 && angle <= 22.5){ //first area (<22.5 degree)
-        if(u.getDistance(0) <= blockDistance && u.getDistance(1) <= blockDistance)
+    if(angle > 0 && angle <= 22.5){ //ultra[0] area, right be blocked (<22.5 degree)
+        if(u.getDistance(1) <= blockDistance)
+            return 1;//stop = true
+        else if(u.getDistance(0) <= blockDistance)
+            return 2;//add degree, move more to left
+        else return 0;//stop = false
+    }
+    else if(angle > 22.5 && angle <= 67.5){ //ultra[1] area (22.5~67.5 degree)
+        if(u.getDistance(1) <= blockDistance || u.getDistance(2) <= blockDistance)
             return 1;//stop = true;
-        else if(u.getDistance(0) <= blockDistance && u.getDistance(1) > blockDistance)
-            return 2;//add degree;
-        else if(u.getDistance(0) > blockDistance && u.getDistance(1) <= blockDistance)
-            return 3;//sub degree;
+        else if(u.getDistance(0) <= blockDistance)
+            return 2;//add degree, move more to left
         else return 0;//stop = false;
     }
-    else if(angle > 22.5 && angle <= 45){ //second area (22.5~45 degree)
-        if(u.getDistance(0) <= blockDistance && u.getDistance(1) <= blockDistance)// || u.getDistance(2) <= blockDistance)
+    else if(angle > 67.5 && angle <= 112.5){ //ultra[2] area, front be blocked (67.5~112.5 degree)
+        if(u.getDistance(2) <= blockDistance)
             return 1;//stop = true;
-        else if(u.getDistance(0) <= blockDistance && u.getDistance(1) > blockDistance)
-            return 2;//add degree;
-        else if(u.getDistance(0) > blockDistance && u.getDistance(1) <= blockDistance)
-            return 3;//sub degree;
+        else if(u.getDistance(0) <= blockDistance || u.getDistance(1) <= blockDistance)
+            return 2;//add degree, move more to left
+        else if(u.getDistance(3) <= blockDistance || u.getDistance(4) <= blockDistance)
+            return 3;//sub degree, move more to right            
         else return 0;//stop = false;
     }
-    else if(angle > 45 && angle <= 67.5){ //third area (45~67.5 degree)
-        if(u.getDistance(1) <= blockDistance || u.getDistance(2) <= blockDistance)// || u.getDistance(2) <= blockDistance)
+    else if(angle > 112.5 && angle <= 157.5){ //ultra[3] area (112.5~157.5 degree)
+        if(u.getDistance(2) <= blockDistance || u.getDistance(3) <= blockDistance)
             return 1;//stop = true;
-        else if(u.getDistance(1) <= blockDistance && u.getDistance(2) > blockDistance)
-            return 2;//add degree;
-        else if(u.getDistance(1) > blockDistance && u.getDistance(2) <= blockDistance)
-            return 3;//sub degree;
+        else if(u.getDistance(4) <= blockDistance)
+            return 3;//sub degree, move more to right
         else return 0;//stop = false;
     }
-    else if(angle > 67.5 && angle <= 90){ //forth area (67.5~90 degree)
-        if(u.getDistance(1) <= blockDistance ||u.getDistance(2) <= blockDistance)// || u.getDistance(3) <= blockDistance)
-            return 1;//stop = true;
-        else if(u.getDistance(1) <= blockDistance && u.getDistance(2) > blockDistance)
-            return 2;//add degree;
-        else if(u.getDistance(1) > blockDistance && u.getDistance(2) <= blockDistance)
-            return 3;//sub degree;
-        else return 0;//stop = false;
-    }
-    else if(angle > 90 && angle <= 112.5){ //third area (90~112.5 degree)
-        if(u.getDistance(2) <= blockDistance || u.getDistance(3) <= blockDistance)// || u.getDistance(3) <= blockDistance)
-            return 1;//stop = true;
-        else if(u.getDistance(2) <= blockDistance && u.getDistance(3) > blockDistance)
-            return 2;//add degree;
-        else if(u.getDistance(2) > blockDistance && u.getDistance(3) <= blockDistance)
-            return 3;//sub degree;
-        else return 0;//stop = false;
-    }
-    else if(angle > 112.5 && angle <= 135){ //forth area (112.5~135 degree)
-        if(u.getDistance(2) <= blockDistance || u.getDistance(3) <= blockDistance)// || u.getDistance(4) <= blockDistance)
-            return 1;//stop = true;
-        else if(u.getDistance(2) <= blockDistance && u.getDistance(3) > blockDistance)
-            return 2;//add degree;
-        else if(u.getDistance(2) > blockDistance && u.getDistance(3) <= blockDistance)
-            return 3;//sub degree;
-        else return 0;//stop = false;
-    }
-    else if(angle > 135 && angle <= 157.5){ //forth area (135~157.5 degree)
-        if(u.getDistance(3) <= blockDistance || u.getDistance(4) <= blockDistance)// || u.getDistance(4) <= blockDistance)
-            return 1;//stop = true;
-        else if(u.getDistance(3) <= blockDistance && u.getDistance(4) > blockDistance)
-            return 2;//add degree;
-        else if(u.getDistance(3) > blockDistance && u.getDistance(4) <= blockDistance)
-            return 3;//sub degree;
-        else return 0;//stop = false;
-    }
-    else if(angle > 157.5){ //first area (>157.5 degree)
-        if(u.getDistance(3) <= blockDistance && u.getDistance(4) <= blockDistance)
-            return 1;//stop = true;
-        else if(u.getDistance(3) <= blockDistance && u.getDistance(4) > blockDistance)
-            return 2;//add degree;
-        else if(u.getDistance(3) > blockDistance && u.getDistance(4) <= blockDistance)
-            return 3;//sub degree;
-        else return 0;//stop = false;
+    else if(angle > 157.5 && angle <= 180){ //ultra[4] area, left be blocked (157.5~180 degree)
+        if(u.getDistance(3) <= blockDistance)
+            return 1;//stop = true
+        else if(u.getDistance(4) <= blockDistance)
+            return 3;//sub degree, move more to right
+        else return 0;//stop = false
     }
     else return 1;//stop = true;
+    // else if(angle > 22.5 && angle <= 45){ //second area (22.5~45 degree)
+    //     if(u.getDistance(0) <= blockDistance && u.getDistance(1) <= blockDistance)// || u.getDistance(2) <= blockDistance)
+    //         return 1;//stop = true;
+    //     else if(u.getDistance(0) <= blockDistance && u.getDistance(1) > blockDistance)
+    //         return 2;//add degree;
+    //     else if(u.getDistance(0) > blockDistance && u.getDistance(1) <= blockDistance)
+    //         return 3;//sub degree;
+    //     else return 0;//stop = false;
+    // }
+    // else if(angle > 45 && angle <= 67.5){ //third area (45~67.5 degree)
+    //     if(u.getDistance(1) <= blockDistance || u.getDistance(2) <= blockDistance)// || u.getDistance(2) <= blockDistance)
+    //         return 1;//stop = true;
+    //     else if(u.getDistance(1) <= blockDistance && u.getDistance(2) > blockDistance)
+    //         return 2;//add degree;
+    //     else if(u.getDistance(1) > blockDistance && u.getDistance(2) <= blockDistance)
+    //         return 3;//sub degree;
+    //     else return 0;//stop = false;
+    // }
+    // else if(angle > 67.5 && angle <= 90){ //forth area (67.5~90 degree)
+    //     if(u.getDistance(1) <= blockDistance ||u.getDistance(2) <= blockDistance)// || u.getDistance(3) <= blockDistance)
+    //         return 1;//stop = true;
+    //     else if(u.getDistance(1) <= blockDistance && u.getDistance(2) > blockDistance)
+    //         return 2;//add degree;
+    //     else if(u.getDistance(1) > blockDistance && u.getDistance(2) <= blockDistance)
+    //         return 3;//sub degree;
+    //     else return 0;//stop = false;
+    // }
+    // else if(angle > 90 && angle <= 112.5){ //third area (90~112.5 degree)
+    //     if(u.getDistance(2) <= blockDistance || u.getDistance(3) <= blockDistance)// || u.getDistance(3) <= blockDistance)
+    //         return 1;//stop = true;
+    //     else if(u.getDistance(2) <= blockDistance && u.getDistance(3) > blockDistance)
+    //         return 2;//add degree;
+    //     else if(u.getDistance(2) > blockDistance && u.getDistance(3) <= blockDistance)
+    //         return 3;//sub degree;
+    //     else return 0;//stop = false;
+    // }
+    // else if(angle > 112.5 && angle <= 135){ //forth area (112.5~135 degree)
+    //     if(u.getDistance(2) <= blockDistance || u.getDistance(3) <= blockDistance)// || u.getDistance(4) <= blockDistance)
+    //         return 1;//stop = true;
+    //     else if(u.getDistance(2) <= blockDistance && u.getDistance(3) > blockDistance)
+    //         return 2;//add degree;
+    //     else if(u.getDistance(2) > blockDistance && u.getDistance(3) <= blockDistance)
+    //         return 3;//sub degree;
+    //     else return 0;//stop = false;
+    // }
+    // else if(angle > 135 && angle <= 157.5){ //forth area (135~157.5 degree)
+    //     if(u.getDistance(3) <= blockDistance || u.getDistance(4) <= blockDistance)// || u.getDistance(4) <= blockDistance)
+    //         return 1;//stop = true;
+    //     else if(u.getDistance(3) <= blockDistance && u.getDistance(4) > blockDistance)
+    //         return 2;//add degree;
+    //     else if(u.getDistance(3) > blockDistance && u.getDistance(4) <= blockDistance)
+    //         return 3;//sub degree;
+    //     else return 0;//stop = false;
+    // }
+    // else if(angle > 157.5){ //first area (>157.5 degree)
+    //     if(u.getDistance(3) <= blockDistance && u.getDistance(4) <= blockDistance)
+    //         return 1;//stop = true;
+    //     else if(u.getDistance(3) <= blockDistance && u.getDistance(4) > blockDistance)
+    //         return 2;//add degree;
+    //     else if(u.getDistance(3) > blockDistance && u.getDistance(4) <= blockDistance)
+    //         return 3;//sub degree;
+    //     else return 0;//stop = false;
+    // }
+    
 }
