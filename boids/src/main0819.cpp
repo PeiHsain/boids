@@ -46,18 +46,8 @@ int main(int argc, char** argv)
             case NotSee:
                 ROS_INFO("Don't see robots!");
                 if (firstStop == 0){//first see nothing
-//                    status = camera.IsReallyUnvisible();
-//                    if(status == 11){//remain same vector
-			            firstStop ++;                        
+			        firstStop ++;                        
                     break;
-//                    }
-//                            else{//really see nothing
-//                    ROS_INFO("Stop");
-//                    stop = 1.;
-//                    inCircle = 0.;
-                    //first time nothing = false
-//                    firstStop ++;
-//                    }
                 }    
                 else if(firstStop > 0 && firstStop < 5){//stop to see more once
                     ROS_INFO("Stop");
@@ -130,15 +120,15 @@ int main(int argc, char** argv)
                     stop = 1.;//true
                     angle = 0;
                 }
-                else if(block == 2){//add degree
+                else if(block == 2){//add degree, move more to left
                     ROS_INFO("Blocked ADD");
                     stop = 0.;
-                    angle = me.Angletf() + addAngle;
+                    angle = -1.;//me.Angletf() + addAngle;
                 }
-                else if(block == 3){//sub degree
+                else if(block == 3){//sub degree, move more to right
                     ROS_INFO("Blocked SUB");
                     stop = 0.;
-                    angle = me.Angletf() - addAngle;
+                    angle = 1;//me.Angletf() - addAngle;
                 }
                 else{//no blocked
                     stop = 0.;//false
