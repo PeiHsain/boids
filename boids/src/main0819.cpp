@@ -22,7 +22,7 @@ int main(int argc, char** argv)
     std_msgs::Float32MultiArray robot_msg;
 
     //RobotData topic initial
-    robot_msg.data = {0, 0, 0, 0};
+    robot_msg.data = {0, 0, 0, 0, 0, 0};
 
     //RobotData variables
     int status = 0, firstStop = 0, block = 0;

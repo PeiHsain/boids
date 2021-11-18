@@ -29,7 +29,7 @@ void Camera::PoseFeedback(const boids::RobotArray::ConstPtr& msg){
     else{
         see = true;
         leader.l_update(0., 0.);
-        for(int i = 0 ; i < 4 ; i++)
+        for(int i = 0 ; i < 6 ; i++)
             robot[i].l_update(0., 0.);
         for(int i = 0 ; i < robotSize ; i++){
             float leaderDis = 0, robotDis = 0;
@@ -71,6 +71,20 @@ void Camera::PoseFeedback(const boids::RobotArray::ConstPtr& msg){
                 if(robotDis < robotCloseDistance)
                     robotCloseDistance = robotDis;
                 break;
+            case 5:
+                robot[4].l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
+                robot[4].o_update(msg->robots[i].orientation);
+                robotDis = robot[4].l_get().magnitude();
+                if(robotDis < robotCloseDistance)
+                    robotCloseDistance = robotDis;
+                break;
+            case 6:
+                robot[5].l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
+                robot[5].o_update(msg->robots[i].orientation);
+                robotDis = robot[5].l_get().magnitude();
+                if(robotDis < robotCloseDistance)
+                    robotCloseDistance = robotDis;
+                break;
             default:
                 break;
             }
@@ -82,7 +96,7 @@ void Camera::PoseFeedback(const boids::RobotArray::ConstPtr& msg){
 void Camera::VelocityFeedback(const boids::Robot_Velocity_Array::ConstPtr& msg){
     int i = 0;
     leader.v_update(0., 0.);
-    for(int i = 0 ; i < 4 ; i++)
+    for(int i = 0 ; i < 6 ; i++)
         robot[i].v_update(0., 0.);
     while(i < msg->robots.size())
     {
@@ -102,6 +116,12 @@ void Camera::VelocityFeedback(const boids::Robot_Velocity_Array::ConstPtr& msg){
             break;
         case 4:
             robot[3].v_update(msg->robots[i].velocity_x, msg->robots[i].velocity_y);
+            break;
+        case 5:
+            robot[4].v_update(msg->robots[i].velocity_x, msg->robots[i].velocity_y);
+            break;
+        case 6:
+            robot[5].v_update(msg->robots[i].velocity_x, msg->robots[i].velocity_y);
             break;
         }
         i++;
@@ -127,7 +147,7 @@ void Camera::CallCamera(Flock& f, Leader& l){
     }
     //flock clean
     f.flock.clear();
-    for(int i = 0 ; i < 4 ; i++)
+    for(int i = 0 ; i < 6 ; i++)
         if(robot[i].See())
             f.addBoid(robot[i]);
     //for(int i = 0 ; i < 4 ; i++)
@@ -152,7 +172,7 @@ int Camera::WhichState(){
             else return 3; //see leader
         }
         else{ //don't see leader, but see robots
-            for(int i = 0 ; i < 4 ; i++){
+            for(int i = 0 ; i < 6 ; i++){
                 if(robot[i].See())
                     if(robot[i].l_get().magnitude() < safeDistance) //catch robots
                         if(robot[i].o_get() <= (-PI+0.52) || robot[i].o_get() >= (PI-0.52)) //catch front (PI+-degree30)
