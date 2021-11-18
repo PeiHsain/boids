@@ -139,7 +139,7 @@ int main(int argc, char** argv)
 	            inCircle = 0.;
                 break;
             case Catch:
-                ROS_INFO("Catch!");
+                ROS_INFO("Catch! %f", leader.l_get().magnitude());
                 firstStop = true;
                 me.v_update(0., 0.);
                 speed = 0.;
