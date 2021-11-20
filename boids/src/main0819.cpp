@@ -89,16 +89,14 @@ int main(int argc, char** argv)
                     angle = 0;
                 }
                 else if(block == 2){//add degree, move to left
-                    ROS_INFO("Blocked ADD");
+                    ROS_INFO("Blocked Right, Move Left");
                     stop = 0.;
-                    angle = -0.5;
-                    // angle = me.Angletf() + addAngle;
+                    angle = me.Angletf() - addAngle;
                 }
                 else if(block == 3){//sub degree, move to right
-                    ROS_INFO("Blocked SUB");
+                    ROS_INFO("Blocked Left, Move Right");
                     stop = 0.;
-                    angle = 0.5;
-                    // angle = me.Angletf() - addAngle;
+                    angle = me.Angletf() + addAngle;
                 }
                 else{//no blocked
                     stop = 0.;//false
@@ -123,14 +121,14 @@ int main(int argc, char** argv)
                     angle = 0;
                 }
                 else if(block == 2){//add degree, move more to left
-                    ROS_INFO("Blocked ADD");
+                    ROS_INFO("Blocked Right, Move Left");
                     stop = 0.;
-                    angle = -0.5;//me.Angletf() + addAngle;
+                    angle = me.Angletf() - addAngle;
                 }
                 else if(block == 3){//sub degree, move more to right
-                    ROS_INFO("Blocked SUB");
+                    ROS_INFO("Blocked Left, Move Right");
                     stop = 0.;
-                    angle = 0.5;//me.Angletf() - addAngle;
+                    angle = me.Angletf() + addAngle;
                 }
                 else{//no blocked
                     stop = 0.;//false
