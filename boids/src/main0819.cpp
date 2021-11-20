@@ -88,15 +88,17 @@ int main(int argc, char** argv)
                     stop = 1.;//true
                     angle = 0;
                 }
-                else if(block == 2){//add degree
+                else if(block == 2){//add degree, move to left
                     ROS_INFO("Blocked ADD");
                     stop = 0.;
-                    angle = me.Angletf() + addAngle;
+                    angle = -0.5;
+                    // angle = me.Angletf() + addAngle;
                 }
-                else if(block == 3){//sub degree
+                else if(block == 3){//sub degree, move to right
                     ROS_INFO("Blocked SUB");
                     stop = 0.;
-                    angle = me.Angletf() - addAngle;
+                    angle = 0.5;
+                    // angle = me.Angletf() - addAngle;
                 }
                 else{//no blocked
                     stop = 0.;//false
