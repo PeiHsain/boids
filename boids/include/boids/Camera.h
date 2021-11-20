@@ -17,7 +17,7 @@ private:
     ros::Subscriber sub_pose;
     ros::Subscriber sub_v;
 
-    Boid robot[4];
+    Boid robot[6];
     Leader leader;
     bool see;
     int robotSize;

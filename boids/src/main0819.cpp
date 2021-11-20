@@ -123,12 +123,12 @@ int main(int argc, char** argv)
                 else if(block == 2){//add degree, move more to left
                     ROS_INFO("Blocked ADD");
                     stop = 0.;
-                    angle = -1.;//me.Angletf() + addAngle;
+                    angle = -0.5;//me.Angletf() + addAngle;
                 }
                 else if(block == 3){//sub degree, move more to right
                     ROS_INFO("Blocked SUB");
                     stop = 0.;
-                    angle = 1;//me.Angletf() - addAngle;
+                    angle = 0.5;//me.Angletf() - addAngle;
                 }
                 else{//no blocked
                     stop = 0.;//false
@@ -140,6 +140,7 @@ int main(int argc, char** argv)
                 break;
             case Catch:
                 ROS_INFO("Catch! %f", leader.l_get().magnitude());
+		ROS_INFO("leader x = %f, y = %f", leader.l_get().x, leader.l_get().y);
                 firstStop = true;
                 me.v_update(0., 0.);
                 speed = 0.;

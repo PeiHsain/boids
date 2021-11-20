@@ -37,7 +37,9 @@ void Camera::PoseFeedback(const boids::RobotArray::ConstPtr& msg){
             switch (msg->robots[i].id)
             {
             case 0:
+		ROS_ERROR("msg.x = %f, msg.y = %f", msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
                 leader.l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
+		ROS_ERROR("L.x = %f, L.y = %f", leader.l_get().x, leader.l_get().y);
                 leader.o_update(msg->robots[i].orientation);
                 leaderDis = leader.l_get().magnitude();
                 if(leaderDis < robotCloseDistance)
@@ -135,6 +137,7 @@ void Camera::CallCamera(Flock& f, Leader& l){
     leader.See();
     if(leader.seeOrNot()){
         l.appear_update(leader.seeOrNot());
+	ROS_ERROR("x = %f, y = %f", leader.l_get().x, leader.l_get().y);
         l.l_update(leader.l_get().x, leader.l_get().y);
         l.v_update(leader.v_get().x, leader.v_get().y);
         l.o_update(leader.o_get());
