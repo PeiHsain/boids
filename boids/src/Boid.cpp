@@ -333,7 +333,7 @@ void Boid::flockL(const vector<Boid>& v, const Leader& l, const Ultrasonic& u)
     sep.mulScalar(2.6);
     ali.mulScalar(1.0);
     coh.mulScalar(1.0);
-    foll.mulScalar(1.2);
+    foll.mulScalar(1.4);
 
     // Add the force vectors to acceleration
     applyForce(sep);
