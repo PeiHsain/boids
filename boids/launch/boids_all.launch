@@ -5,6 +5,9 @@
 	<node name="motor_control" pkg="motor_control" type="motor_control.py" respawn="false">
 	</node>
 
+	<node name="led_status" pkg="led_status" type="led_show.py" respawn="false">
+	</node>
+
 	<include file="$(find robot_detection)/launch/robot_detection.launch" >
     	</include>
 
