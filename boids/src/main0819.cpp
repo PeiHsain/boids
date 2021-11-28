@@ -26,7 +26,7 @@ int main(int argc, char** argv)
 
     //RobotData variables
     int status = 0, firstStop = 0, block = 0;
-    float addAngle = 0.5;
+    float addAngle = 1;
     float speed = 0., angle = 0., stop = 0., inCircle = 0.;//inCircle: no circle=0, turn right=1, turn left=2
     Flock flock;
     Boid me(0., 0.);
