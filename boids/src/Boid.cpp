@@ -330,7 +330,7 @@ void Boid::flockL(const vector<Boid>& v, const Leader& l, const Ultrasonic& u)
     Pvector foll = FollowLeader(l);
 
     // Might need to alter weights for different characteristics
-    sep.mulScalar(2.6);
+    sep.mulScalar(2.8);
     ali.mulScalar(1.1);
     coh.mulScalar(1.1);
     foll.mulScalar(1.6);
