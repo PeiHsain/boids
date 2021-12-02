@@ -29,7 +29,7 @@ Boid::Boid(float x, float y)
     maxForce = 1.5;
     maxRange = 10;
     stop = false;
-    blockDistance = 20;//cm, for stop
+    blockDistance = 30;//cm, for stop
     desiredseparation = 40;//cm, for separation
     Ultraseparation = 40;//cm, for separation
     slowDownDistance = 30;//cm, for separation slow down
