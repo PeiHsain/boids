@@ -37,9 +37,9 @@ void Camera::PoseFeedback(const boids::RobotArray::ConstPtr& msg){
             switch (msg->robots[i].id)
             {
             case 0:
-		ROS_ERROR("msg.x = %f, msg.y = %f", msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
+//		ROS_ERROR("msg.x = %f, msg.y = %f", msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
                 leader.l_update(msg->robots[i].pose.position.x, msg->robots[i].pose.position.z);
-		ROS_ERROR("L.x = %f, L.y = %f", leader.l_get().x, leader.l_get().y);
+//		ROS_ERROR("L.x = %f, L.y = %f", leader.l_get().x, leader.l_get().y);
                 leader.o_update(msg->robots[i].orientation);
                 leaderDis = leader.l_get().magnitude();
                 if(leaderDis < robotCloseDistance)
@@ -137,7 +137,7 @@ void Camera::CallCamera(Flock& f, Leader& l){
     leader.See();
     if(leader.seeOrNot()){
         l.appear_update(leader.seeOrNot());
-	ROS_ERROR("x = %f, y = %f", leader.l_get().x, leader.l_get().y);
+//	ROS_ERROR("x = %f, y = %f", leader.l_get().x, leader.l_get().y);
         l.l_update(leader.l_get().x, leader.l_get().y);
         l.v_update(leader.v_get().x, leader.v_get().y);
         l.o_update(leader.o_get());
@@ -167,10 +167,11 @@ int Camera::WhichState(){
     else{
         if(leader.seeOrNot()){
             if(leader.l_get().magnitude() < safeDistance){ //catch leader
-                if(leader.o_get() <= (-PI+0.52) || leader.o_get() >= (PI-0.52)) //catch front (PI+-degree30)
-                    return 1;
-                else
-                    return 4;
+		    return 4;
+//                if(leader.o_get() <= (-PI+0.52) || leader.o_get() >= (PI-0.52)) //catch front (PI+-degree30)
+//                    return 1;
+//                else
+//                    return 4;
             }
             else return 3; //see leader
         }
@@ -178,7 +179,7 @@ int Camera::WhichState(){
             for(int i = 0 ; i < 6 ; i++){
                 if(robot[i].See())
                     if(robot[i].l_get().magnitude() < safeDistance) //catch robots
-                        if(robot[i].o_get() <= (-PI+0.52) || robot[i].o_get() >= (PI-0.52)) //catch front (PI+-degree30)
+                        if(robot[i].o_get() <= (-PI+(PI/2)) || robot[i].o_get() >= (PI-(PI/2))) //catch front (PI+-degree30)
                             return 1;
                         else
                             return 4;
