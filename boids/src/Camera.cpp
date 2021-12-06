@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <vector>
 
-#define safeDistance 40 //cm
+#define safeDistance 50 //cm
 #define PI 3.141592635
 
 Camera::Camera(){
