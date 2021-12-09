@@ -10,7 +10,7 @@
 #include <algorithm>
 #include <vector>
 
-#define safeDistanceL 35 //cm, catch leader
+#define safeDistanceL 40 //cm, catch leader
 #define safeDistance 45 //cm
 #define PI 3.141592635
 
