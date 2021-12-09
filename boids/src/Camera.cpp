@@ -10,6 +10,7 @@
 #include <algorithm>
 #include <vector>
 
+#define safeDistanceL 35 //cm, catch leader
 #define safeDistance 45 //cm
 #define PI 3.141592635
 
@@ -166,7 +167,7 @@ int Camera::WhichState(){
         return 1;
     else{
         if(leader.seeOrNot()){
-            if(leader.l_get().magnitude() < safeDistance){ //catch leader
+            if(leader.l_get().magnitude() < safeDistanceL){ //catch leader
 		    return 4;
 //                if(leader.o_get() <= (-PI+0.52) || leader.o_get() >= (PI-0.52)) //catch front (PI+-degree30)
 //                    return 1;
