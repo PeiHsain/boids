@@ -57,7 +57,7 @@ int main(int argc, char** argv)
                 }
                 else{
                     ROS_INFO("In Circle");
-		    angle = me.Angletf();
+		    //angle = me.Angletf();
                     //if(firstStop <= 1){
                         if(angle >= 0) //turn right
                             inCircle = 1.;
